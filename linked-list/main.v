@@ -1,13 +1,18 @@
 import os { input }
 
 fn main() {
-	name := input('Enter your name: ')
-	println('Hello, ${name}!')
 	mut list := List[string]{}
-	list.prepend(mut Node{ data: name })
-	list.prepend(mut Node{ data: 'first' })
-	list.append(mut Node{ data: 'last' }) or { panic('unable to append linked list') }
-	list.append(mut Node{ data: 'very last' }) or { panic('unable to append linked list') }
+	list.append(mut Node{ data: '2' })
+	list.prepend(mut Node{ data: '1' })
+	list.prepend(mut Node{ data: '0' })
+	list.append(mut Node{ data: '3' }) or { panic('unable to append linked list') }
+	list.append(mut Node{ data: '4' }) or { panic('unable to append linked list') }
 	dump(list)
-	// println(add(1, 2))
+	last := list.find_last()
+	dump(last)
+	n := input('Search for position: ')
+	println('Position: ${n}!')
+	found := list.find_at(n.int())
+	dump(found)
+	dump(list)
 }

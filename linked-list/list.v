@@ -17,9 +17,7 @@ pub fn (mut l List[T]) prepend(mut node Node[T]) {
 }
 
 pub fn (mut l List[T]) append(mut node Node[T]) ?int {
-	if h := l.head {
-		h
-	} else {
+	if l.head == none {
 		l.head = &node
 		l.size = 0
 		return l.size
@@ -36,21 +34,48 @@ pub fn (mut l List[T]) append(mut node Node[T]) ?int {
 				l.size = l.size + 1
 				break
 			}
-		} else {
-			// println('unexpected place')
-			// curr_node = &node
-			// l.size = l.size + 1
-			// break
 		}
 	}
 	return l.size
 }
 
-// fn (l List[T]) find_next(node ?&Node[T]) ?&Node[T] {
-//	dump(node)
-//	if n := node {
-//		return l.find_next(n)
-//	} else {
-//		return none
-//	}
-//}
+pub fn (l List[T]) find_last() ?&Node[T] {
+	mut curr_node := l.head
+	for {
+		if curr_node != none {
+			if next_node := curr_node?.next {
+				curr_node = next_node
+			} else {
+				break
+			}
+		}
+	}
+	return curr_node
+}
+
+pub fn (l List[T]) find_at(pos int) ?&Node[T] {
+	mut curr_node := l.head
+	if pos == 0 {
+		return curr_node
+	}
+	if pos > l.size {
+		return none
+	}
+	if pos == l.size {
+		l.find_last()
+	} 
+	for i in 0 .. l.size {
+		if i == pos {
+			return curr_node
+		} else {
+			if curr_node != none {
+				if next_node := curr_node?.next {
+					curr_node = next_node
+				} else {
+					return none
+				}
+			}
+		}
+	}
+	return curr_node
+}
