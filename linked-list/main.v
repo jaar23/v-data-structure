@@ -30,7 +30,7 @@ fn main() {
 	mut now := time.now()
 	mut list := List[string]{}
 	// i := 1
-	for i in 0 .. 10000 {
+	for i in 1 .. 50000 {
 		mut node := Node[string]{
 			data: i.str()
 		}
@@ -41,7 +41,7 @@ fn main() {
 	// dump(list)
 	// list.prepend(mut Node{ data: 'other..' + i.str() })
 	now = time.now()
-	found := list.find_at(10000)
+	found := list.find_last()
 	dump(found)
 	println('size: ${list.size}')
 	println('spent ${time.since(now)} to search')
