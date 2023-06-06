@@ -1,4 +1,4 @@
-module node
+module list_node
 
 [heap]
 pub struct Node[T] {
