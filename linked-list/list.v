@@ -4,9 +4,8 @@ import list_node { Node }
 
 pub struct List[T] {
 mut:
-	head   ?&Node[T]
-	size   int
-	cursor ?&Node[T]
+	head ?&Node[T]
+	size int
 }
 
 pub fn (mut l List[T]) prepend(mut node Node[T]) {
@@ -26,25 +25,18 @@ pub fn (mut l List[T]) append(mut node Node[T]) ?int {
 		l.size = 1
 		return l.size
 	}
-	mut cursor := if c := l.cursor {
-		c
-	} else {
-		l.head
-	}
-
-	mut curr_node := cursor
+	mut curr_node := l.head
 	for {
-		// if curr_node != none {
-		if next_node := curr_node?.next {
-			curr_node = next_node
-		} else {
-			// println('expected place')
-			curr_node?.next = &node
-			l.cursor = curr_node?.next
-			l.size = l.size + 1
-			break
+		if curr_node != none {
+			if next_node := curr_node?.next {
+				curr_node = next_node
+			} else {
+				// println('expected place')
+				curr_node?.next = &node
+				l.size = l.size + 1
+				break
+			}
 		}
-		// }
 	}
 	return l.size
 }
